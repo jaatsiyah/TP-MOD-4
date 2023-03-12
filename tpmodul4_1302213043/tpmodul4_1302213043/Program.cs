@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
 public class KodePos
 {
     public enum Kelurahan { Batununggal,Kujangsari,Mengger,Wates,Cijaura,Jatisari,Margasari,Sekejati,Kebonwaru,Maleer,Samoja}
@@ -9,13 +10,61 @@ public class KodePos
     }
 }
 
-public class Program
+
+
+public class DoorMachine
 {
+    enum State { terkunci, terbuka };
+
     public static void Main()
     {
-        KodePos  kodePos = new KodePos();
-        int getKodePos = KodePos.getKodePos(KodePos.Kelurahan.Batununggal);
-        Console.WriteLine(getKodePos);
+        KodePos kodePos = new KodePos();
+        int getKodePos = KodePos.getKodePos(KodePos.Kelurahan.Batununggal); // contoh pakai batununggal
+        Console.WriteLine(getKodePos); // kode pos = 40266
+        Console.WriteLine();
+
+        State state = State.terkunci;
+        string[] screenName = { "Pintu terkunci", "Pintu tidak terkunci" };
+        while (state != null)
+        {
+            Console.WriteLine(screenName[(int)state]);
+            Console.WriteLine();
+            Console.Write("Enter Command : ");
+
+            string command = Console.ReadLine();
+            switch (state)
+            {
+                case State.terkunci:
+                    if (command == "KunciPintu")
+                        state = State.terkunci;
+                    else if (command == "BukaPintu")
+                        state = State.terbuka;
+                    else
+                    {
+                        state = State.terkunci;
+                        Console.WriteLine("Command Salah");
+                           
+                    }
+                    Console.WriteLine();
+                    break;
+
+                case State.terbuka:
+                    if (command == "KunciPintu")
+                        state = State.terkunci;
+                    else if (command == "BukaPintu")
+                        state = State.terbuka;
+                    else
+                    {
+                        state = State.terbuka;
+                        Console.WriteLine("Command Salah");
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine();
+                    break;
+            }
+
+        }
     }
-    
 }
+
+
